@@ -106,24 +106,24 @@ function notifyMe(message) {
   if (!("Notification" in window)) {
     alert("This browser does not support desktop notification");
   } else if (Notification.permission === "granted") {
-    const notification = new Notification(" Cart Changed ", {
-      body: message,
-      icon: "https://i.pinimg.com/564x/2f/eb/8a/2feb8af81e45b119cd07937553c886c2.jpg",
-      image:
-        "https://i.pinimg.com/564x/a6/9b/bd/a69bbd9fea8608c7b9934fef3dc5ecdd.jpg",
-    });
+    showNotification(message);
   } else if (Notification.permission !== "denied") {
     Notification.requestPermission().then((permission) => {
       if (permission === "granted") {
-        const notification = new Notification(" Cart Changed  ", {
-          body: "If Item added or deleted it will apper here",
-          icon: "https://i.pinimg.com/564x/2f/eb/8a/2feb8af81e45b119cd07937553c886c2.jpg",
-          image:
-            "https://i.pinimg.com/564x/a6/9b/bd/a69bbd9fea8608c7b9934fef3dc5ecdd.jpg",
-        });
+        showNotification(message);
       }
     });
   }
+}
+
+function showNotification(message) {
+  const notification = new Notification("Cart Changed", {
+    body: message,
+    icon:
+      "https://i.pinimg.com/564x/2f/eb/8a/2feb8af81e45b119cd07937553c886c2.jpg",
+    image:
+      "https://i.pinimg.com/564x/a6/9b/bd/a69bbd9fea8608c7b9934fef3dc5ecdd.jpg",
+  });
 }
 
 function updateItemCount(inputValue) {
