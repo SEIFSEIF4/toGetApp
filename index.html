@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar" dir="rtl">
   <head>
-    <title>Add to Cart</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>المشتريات</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -14,18 +15,36 @@
       href="https://www.linkpicture.com/q/icons8_ghost.ico"
       type="image/x-icon"
     />
+    <link rel="manifest" href="/site.webmanifest" />
   </head>
   <body>
     <div class="container">
       <img
         src="https://i.pinimg.com/564x/2f/eb/8a/2feb8af81e45b119cd07937553c886c2.jpg"
       />
-      <input type="text" id="input-field" placeholder="Milk" />
-      <button id="add-button">Add to cart</button>
-      <ul id="shopping-list">
-    </ul>
+      <input type="text" id="input-field" placeholder="اكتب طلب" />
+      <div class="controls-btn">
+        <button id="add-button">أضف إلى السلة</button>
+        <button id="show-button">تم الشراء</button>
+      </div>
+      <ul id="shopping-list"></ul>
     </div>
-    <script src="functions.js" type="module"></script>
+
     <script src="index.js" type="module"></script>
   </body>
 </html>
+
+<!-- 
+actions: [
+{
+  action: "actionYes",
+  title: "Yes",
+  icon: "https://i.pinimg.com/564x/2f/eb/8a/2feb8af81e45b119cd07937553c886c2.jpg",
+},
+{
+  action: "actionNo",
+  title: "No",
+  icon: "https://i.pinimg.com/564x/2f/eb/8a/2feb8af81e45b119cd07937553c886c2.jpg",
+},
+], -->
+
