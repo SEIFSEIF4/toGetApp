@@ -1,6 +1,7 @@
 {
   "name": "Grocery Cart",
   "short_name": "Grocery Cart",
+  "description": "Add Your Needs here.",
   "icons": [
     {
       "src": "./images/android-chrome-192x192.png",
@@ -18,6 +19,7 @@
       "type": "image/png"
     }
   ],
+  "start_url": "https://grocerycartapp.netlify.app/",
   "theme_color": "#c0c0c0",
   "background_color": "#c0c0c0",
   "display": "standalone"

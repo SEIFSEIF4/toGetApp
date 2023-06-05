@@ -9,7 +9,8 @@ body {
   display: flex;
   justify-content: center;
   height: 100dvh;
-  align-items: center;
+  /* align-items: center ; On PC*/
+  align-items: start; /*On Phone*/
 }
 
 .container {
@@ -86,4 +87,12 @@ ul li.delete {
 ul li:hover {
   background-color: #ffecc7;
   cursor: pointer;
+}
+
+img#emptyCart {
+  width: 100%;
+  display: none;
+}
+img#emptyCart.show {
+  display: block;
 }

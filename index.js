@@ -17,11 +17,13 @@ const app = initializeApp(appSettings);
 const database = getDatabase(app);
 const groceryInDB = ref(database, "grocery");
 const groceryRestored = ref(database, "grocery-restored");
+const computedAppId = "https://grocerycartapp.netlify.app/";
 
 const inputFieldEl = document.getElementById("input-field");
 const addButtonEl = document.getElementById("add-button");
 const showButtonEl = document.getElementById("show-button");
 const shoppingListEl = document.getElementById("shopping-list");
+const emptyCart = document.getElementById("emptyCart");
 
 let dbItems = 0; // Initialize dbItems variable
 
@@ -47,11 +49,13 @@ showButtonEl.addEventListener("click", () => {
         let currentItemID = currentItem[0];
         let currentItemValue = currentItem[1];
         appendItemToShoppingListEl(currentItem);
+        emptyCart.classList.remove("show");
       }
     } else {
       shoppingListEl.innerHTML = "No items Here yet";
       shoppingListEl.style.margin = "25px auto";
       shoppingListEl.style.fontSize = "25px";
+      emptyCart.classList.add("show");
     }
   });
 });
@@ -67,16 +71,11 @@ onValue(groceryInDB, function (snapshot) {
       let currentItemValue = currentItem[1];
 
       appendItemToShoppingListEl(currentItem);
+      emptyCart.classList.remove("show");
     }
   } else {
     clearShoppingListEl();
-    let emptyCart = document.createElement("img");
-    emptyCart.setAttribute("src", "./images/empty_cart.png");
-    emptyCart.style.width = "100%";
-    emptyCart.style.height = "100%";
-    emptyCart.style.objectFit = "contain";
-    emptyCart.style.objectPosition = "center";
-    shoppingListEl.append(emptyCart);
+    emptyCart.classList.add("show");
   }
 });
 
@@ -102,7 +101,6 @@ function appendItemToShoppingListEl(item) {
         const itemData = snapshot.val();
         remove(ref(database, `grocery/${itemID}`));
         set(ref(database, `grocery-restored/${itemID}`), itemData);
-        notifyMe(itemValue + "  deleted from Cart");
         updateItemCount();
       }
     });
@@ -149,3 +147,53 @@ function updateItemCount(inputValue) {
   //   throw error; // Throw the error to handle it elsewhere, if needed
   // });
 }
+
+let deferredPrompt;
+
+if ("beforeinstallprompt" in window) {
+  window.addEventListener("beforeinstallprompt", (event) => {
+    if (!event.platforms || !event.platforms.includes("browser")) {
+      // App already installed, hide the install button
+      const installButton = document.getElementById("install-button");
+      installButton.style.display = "none";
+      return;
+    }
+
+    // Prevent the default browser prompt
+    event.preventDefault();
+
+    // Store the event for later use
+    deferredPrompt = event;
+
+    // Display a custom install button or UI to the user
+    // Show a call-to-action to install your app
+
+    // Example: Show a custom install button
+    const installButton = document.getElementById("install-button");
+    installButton.style.opacity = "1";
+
+    installButton.addEventListener("click", () => {
+      // Prompt the user to install the app
+      deferredPrompt.prompt();
+
+      // Wait for the user's choice
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === "accepted") {
+          console.log("User accepted the install prompt");
+          // The app was installed
+        } else {
+          console.log("User dismissed the install prompt");
+          // The app was not installed
+        }
+
+        // Clear the deferredPrompt variable
+        deferredPrompt = null;
+      });
+    });
+  });
+}
+
+window.addEventListener("appinstalled", (event) => {
+  console.log("App installed");
+  // Perform any necessary actions upon successful installation
+});
