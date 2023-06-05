@@ -49,18 +49,12 @@ showButtonEl.addEventListener("click", () => {
         appendItemToShoppingListEl(currentItem);
       }
     } else {
-      shoppingListEl.innerHTML = "No items restored yet";
+      shoppingListEl.innerHTML = "No items Here yet";
+      shoppingListEl.style.margin = "25px auto";
+      shoppingListEl.style.fontSize = "25px";
     }
   });
 });
-
-function clearInputFieldEl() {
-  inputFieldEl.value = "";
-}
-
-function clearShoppingListEl() {
-  shoppingListEl.innerHTML = "";
-}
 
 onValue(groceryInDB, function (snapshot) {
   if (snapshot.exists()) {
@@ -75,8 +69,9 @@ onValue(groceryInDB, function (snapshot) {
       appendItemToShoppingListEl(currentItem);
     }
   } else {
+    clearShoppingListEl();
     let emptyCart = document.createElement("img");
-    emptyCart.setAttribute("src", "./images/empty_cart.jpg");
+    emptyCart.setAttribute("src", "./images/empty_cart.png");
     emptyCart.style.width = "100%";
     emptyCart.style.height = "100%";
     emptyCart.style.objectFit = "contain";
@@ -84,6 +79,14 @@ onValue(groceryInDB, function (snapshot) {
     shoppingListEl.append(emptyCart);
   }
 });
+
+function clearInputFieldEl() {
+  inputFieldEl.value = "";
+}
+
+function clearShoppingListEl() {
+  shoppingListEl.innerHTML = "";
+}
 
 function appendItemToShoppingListEl(item) {
   let itemID = item[0];
@@ -146,17 +149,3 @@ function updateItemCount(inputValue) {
   //   throw error; // Throw the error to handle it elsewhere, if needed
   // });
 }
-
-
-// actions: [
-// {
-//   action: "actionYes",
-//   title: "Yes",
-//   icon: "https://i.pinimg.com/564x/2f/eb/8a/2feb8af81e45b119cd07937553c886c2.jpg",
-// },
-// {
-//   action: "actionNo",
-//   title: "No",
-//   icon: "https://i.pinimg.com/564x/2f/eb/8a/2feb8af81e45b119cd07937553c886c2.jpg",
-// },
-// ], 
