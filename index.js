@@ -75,7 +75,13 @@ onValue(groceryInDB, function (snapshot) {
       appendItemToShoppingListEl(currentItem);
     }
   } else {
-    shoppingListEl.innerHTML = "No items here... yet";
+    let emptyCart = document.createElement("img");
+    emptyCart.setAttribute("src", "./images/empty_cart.jpg");
+    emptyCart.style.width = "100%";
+    emptyCart.style.height = "100%";
+    emptyCart.style.objectFit = "contain";
+    emptyCart.style.objectPosition = "center";
+    shoppingListEl.append(emptyCart);
   }
 });
 
@@ -119,8 +125,7 @@ function notifyMe(message) {
 function showNotification(message) {
   const notification = new Notification("Cart Changed", {
     body: message,
-    icon:
-      "https://i.pinimg.com/564x/2f/eb/8a/2feb8af81e45b119cd07937553c886c2.jpg",
+    icon: "https://i.pinimg.com/564x/2f/eb/8a/2feb8af81e45b119cd07937553c886c2.jpg",
     image:
       "https://i.pinimg.com/564x/a6/9b/bd/a69bbd9fea8608c7b9934fef3dc5ecdd.jpg",
   });
@@ -141,3 +146,17 @@ function updateItemCount(inputValue) {
   //   throw error; // Throw the error to handle it elsewhere, if needed
   // });
 }
+
+
+// actions: [
+// {
+//   action: "actionYes",
+//   title: "Yes",
+//   icon: "https://i.pinimg.com/564x/2f/eb/8a/2feb8af81e45b119cd07937553c886c2.jpg",
+// },
+// {
+//   action: "actionNo",
+//   title: "No",
+//   icon: "https://i.pinimg.com/564x/2f/eb/8a/2feb8af81e45b119cd07937553c886c2.jpg",
+// },
+// ], 
